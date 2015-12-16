@@ -122,7 +122,6 @@
         [[[UIApplication sharedApplication] keyWindow] bringSubviewToFront:_notificationView];
 
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
-            _blurEffectStyle = _blurEffectStyle ? : UIBlurEffectStyleLight;
             UIVisualEffect *visualEffect = [UIBlurEffect effectWithStyle:_blurEffectStyle];
             UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:visualEffect];
             blurView.frame = _notificationView.bounds;
