@@ -97,6 +97,7 @@
         _bottomButtonBackgroundColor = _bottomButtonBackgroundColor ? : [UIColor clearColor];
         _bottomButtonBorderColor = _bottomButtonBorderColor ? : [UIColor grayColor];
         
+        _bottomButton.backgroundColor = _topButtonBackgroundColor;
         _bottomButton.titleLabel.font = _buttonFont;
         [_bottomButton setTitleColor:_bottomButtonTextColor forState:UIControlStateNormal];
         [_bottomButton.layer setCornerRadius:_buttonCornerRadius];
