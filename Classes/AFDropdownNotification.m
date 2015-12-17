@@ -51,7 +51,6 @@
         _imageView.image = nil;
 
         _topButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _topButton.adjustsImageWhenHighlighted = YES;
 
         _bottomButton = [UIButton buttonWithType:UIButtonTypeCustom];
 
@@ -156,6 +155,9 @@
 
         _topButton.frame = CGRectMake(_titleLabel.frame.origin.x + _titleLabel.frame.size.width + kDropdownPadding, 20 + (kDropdownPadding / 2), kDropdownButtonWidth, kDropdownButtonHeight);
         [_topButton addTarget:self action:@selector(topButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [_topButton addTarget:self action:@selector(topButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [_topButton addTarget:self action:@selector(topButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [_topButton addTarget:self action:@selector(topButtonReleased:) forControlEvents:UIControlEventTouchUpOutside];
 
         if (_topButtonText) {
             [_notificationView addSubview:_topButton];
@@ -163,6 +165,9 @@
 
         _bottomButton.frame = CGRectMake(_titleLabel.frame.origin.x + _titleLabel.frame.size.width + kDropdownPadding, _topButton.frame.origin.y + _topButton.frame.size.height + 6, kDropdownButtonWidth, kDropdownButtonHeight);
         [_bottomButton addTarget:self action:@selector(bottomButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [_bottomButton addTarget:self action:@selector(bottomButtonPressed:) forControlEvents:UIControlEventTouchDown];
+        [_bottomButton addTarget:self action:@selector(bottomButtonReleased:) forControlEvents:UIControlEventTouchUpInside];
+        [_bottomButton addTarget:self action:@selector(bottomButtonReleased:) forControlEvents:UIControlEventTouchUpOutside];
 
         if (_bottomButtonText) {
             [_notificationView addSubview:_bottomButton];
@@ -232,6 +237,28 @@
 
     _internalBlock(AFDropdownNotificationEventBottomButton);
     //    }
+}
+
+-(void)topButtonPressed:(UIButton *)sender {
+    if (!_topButtonHighlightedBackgroundColor) {
+        return;
+    }
+    sender.backgroundColor = _topButtonHighlightedBackgroundColor;
+}
+
+-(void)topButtonReleased:(UIButton *)sender {
+    sender.backgroundColor = _topButtonBackgroundColor ? : [UIColor clearColor];
+}
+
+-(void)bottomButtonPressed:(UIButton *)sender {
+    if (!_bottomButtonHighlightedBackgroundColor) {
+        return;
+    }
+    sender.backgroundColor = _bottomButtonHighlightedBackgroundColor;
+}
+
+-(void)bottomButtonReleased:(UIButton *)sender {
+    sender.backgroundColor = _bottomButtonBackgroundColor ? : [UIColor clearColor];
 }
 
 -(void)dismiss:(id)sender {
